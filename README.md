@@ -1,51 +1,64 @@
-# Kratos Project Template
+# scripts-llm
 
-## Install Kratos
-```
-go install github.com/go-kratos/kratos/cmd/kratos/v2@latest
-```
-## Create a service
-```
-# Create a template project
-kratos new server
+这是大三小学习后端代码项目，用于使用 LLM 解析剧本，实现与剧本中的人物对话。
 
-cd server
-# Add a proto template
-kratos proto add api/server/server.proto
-# Generate the proto code
-kratos proto client api/server/server.proto
-# Generate the source code of service by proto file
-kratos proto server api/server/server.proto -t internal/service
+## API 文档
+- [API 文档](https://kwtyo10mo4.apifox.cn/)
 
-go generate ./...
-go build -o ./bin/ ./...
-./bin/server -conf ./configs
+## 项目结构
 ```
-## Generate other auxiliary files by Makefile
+├── .gitignore
+├── Dockerfile
+├── LICENSE
+├── Makefile
+├── README.md
+├── api/
+│   └── helloworld/
+│       └── v1/
+├── cmd/
+│   └── scripts-llm/
+│       ├── main.go
+│       ├── wire.go
+│       └── wire_gen.go
+├── configs/
+│   └── config.yaml
+├── go.mod
+├── go.sum
+├── internal/
+│   ├── biz/
+│   │   ├── README.md
+│   │   ├── biz.go
+│   │   └── greeter.go
+│   ├── conf/
+│   │   ├── conf.pb.go
+│   │   └── conf.proto
+│   ├── data/
+│   │   ├── README.md
+│   │   ├── data.go
+│   │   └── greeter.go
+│   ├── server/
+│   │   ├── grpc.go
+│   │   ├── http.go
+│   │   └── server.go
+│   └── service/
+│       ├── README.md
+│       ├── greeter.go
+│       └── service.go
+├── openapi.yaml
+└── third_party/
+    ├── README.md
+    ├── errors/
+    │   └── errors.proto
+    ├── google/
+    │   ├── api/
+    │   └── protobuf/
+    ├── openapi/
+    │   └── v3/
+    └── validate/
+        ├── README.md
+        └── validate.proto
 ```
-# Download and update dependencies
-make init
-# Generate API files (include: pb.go, http, grpc, validate, swagger) by proto file
-make api
-# Generate all files
-make all
-```
-## Automated Initialization (wire)
-```
-# install wire
-go get github.com/google/wire/cmd/wire
 
-# generate wire
-cd cmd/server
-wire
-```
-
-## Docker
-```bash
-# build
-docker build -t <your-docker-image-name> .
-
-# run
-docker run --rm -p 8000:8000 -p 9000:9000 -v </path/to/your/configs>:/data/conf <your-docker-image-name>
-```
-
+## 运行步骤
+1. 安装依赖：`go mod tidy`
+2. 运行项目：`go run cmd/scripts-llm/main.go`
