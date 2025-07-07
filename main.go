@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"log"
 	"scripts-llm/internal/chat"
@@ -11,6 +12,15 @@ import (
 func main() {
 	s := gin.Default()
 	g := s.Group("/api/v1")
+	g.Use(cors.New(cors.Config{
+		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
+		AllowHeaders:     []string{"Origin", "Content-Length", "Content-Type", "Authorization"},
+		ExposeHeaders:    []string{"Content-Length"},
+		AllowCredentials: true,
+		AllowOriginFunc: func(origin string) bool {
+			return true
+		},
+	}))
 
 	g.POST("/scripts", script.Upload)
 	g.POST("/roles", script.Analyze)
