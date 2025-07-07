@@ -8,7 +8,6 @@ import (
 	"io"
 	"log"
 	"net/http"
-	"os"
 	"scripts-llm/internal"
 	"strings"
 )
@@ -56,7 +55,7 @@ func SSE(ctx *gin.Context) {
 		return
 	}
 	req.Header.Add("Content-Type", "application/json")
-	req.Header.Add("Authorization", "Bearer "+os.Getenv("KEY"))
+	req.Header.Add("Authorization", "Bearer ")
 
 	res, err := client.Do(req)
 	if err != nil {
@@ -156,7 +155,6 @@ func getPayload(ctx *gin.Context, req Req) (io.Reader, error) {
 	// sse
 	payload.Stream = true
 
-	// TODO 设置 prompt
 	var (
 		assistant internal.Role
 		user      internal.Role

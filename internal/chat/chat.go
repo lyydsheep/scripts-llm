@@ -7,7 +7,6 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
-	"os"
 )
 
 func Chat(payload io.Reader) string {
@@ -47,7 +46,7 @@ func setReq(payload io.Reader) *http.Request {
 	}
 	req.Header.Add("Content-Type", "application/json")
 	req.Header.Add("Accept", "application/json")
-	req.Header.Add("Authorization", "Bearer "+os.Getenv("KEY"))
+	req.Header.Add("Authorization", "Bearer ")
 	return req
 }
 

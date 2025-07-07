@@ -4,12 +4,14 @@ import (
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"log"
+	"scripts-llm/internal"
 	"scripts-llm/internal/chat"
 	"scripts-llm/internal/role"
 	"scripts-llm/internal/script"
 )
 
 func main() {
+	internal.InitDB()
 	s := gin.Default()
 	g := s.Group("/api/v1")
 	g.Use(cors.New(cors.Config{
@@ -29,7 +31,7 @@ func main() {
 	g.POST("/chat", chat.SSE)
 	g.GET("/chat", chat.History)
 
-	if err := s.Run("0.0.0.0:8080"); err != nil {
+	if err := s.Run("0.0.0.0:31721"); err != nil {
 		log.Println(err, "main")
 	}
 }

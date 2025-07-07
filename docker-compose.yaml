@@ -1,0 +1,24 @@
+version: '3'
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql-container
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: dev
+    networks:
+      - my-network
+
+  backend:
+    image: lyydsheep/scripts:1.0
+    container_name: backend-container
+    ports:
+      - "31721:31721"
+    depends_on:
+      - mysql
+    networks:
+      - my-network
+
+networks:
+  my-network:
+    driver: bridge
